@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 	<head>
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -14,6 +14,7 @@
 		/>
 		<link rel="stylesheet" href="assets/css/styles.css" />
 	</head>
+
 	<body>
 		<section class="page-wrapper">
 			<header class="header">
@@ -41,7 +42,29 @@
 									src="assets/images/icons/geolocation.svg"
 									alt="Geolocation"
 								/>
-								<a href="/" class="dots-underline">Смотреть на карте</a>
+								<a id="mapBtn" class="dots-underline">Смотреть на карте</a>
+								<div class="header__map-widget" id="map">
+									<div class="widget__header">
+										<span id="mapCloseBtn">
+											<svg
+												width="20"
+												height="20"
+												viewBox="0 0 20 20"
+												xmlns="http://www.w3.org/2000/svg"
+											>
+												<path
+													fill-rule="evenodd"
+													clip-rule="evenodd"
+													d="M9.99992 12.2528L2.481 19.9998L0 17.4436L7.51892 9.69651L0.589098 2.55644L3.07009 0.000175111L9.99992 7.14025L16.9299 0L19.4109 2.55627L12.4809 9.69651L20 17.4437L17.519 20L9.99992 12.2528Z"
+												/>
+											</svg>
+										</span>
+									</div>
+									<iframe
+										src="https://yandex.ru/map-widget/v1/?um=constructor%3Aea94e3aef2bd9eeb8f4df17bbbcf321e03212c43d3617fabdc70cd99a6b3a6f3&amp;source=constructor"
+										frameborder="0"
+									></iframe>
+								</div>
 							</div>
 							<div class="header__calculate only-desktop">
 								<div>
@@ -55,13 +78,17 @@
 									ремонта за 45 сек
 								</a>
 							</div>
-							<div class="header__social only-deskto§">
+							<div class="header__social only-desktop">
 								<p>
 									Задайте вопрос, <br />
 									мы сейчас онлайн
 								</p>
-								<div class="social__links">
-									<a href="/" class="social__link social__link-whatsapp">
+								<div class="social__links only-desktop">
+									<a
+										href="https://www.whatsapp.com/?lang=ru"
+										target="_blank"
+										class="social__link social__link-whatsapp"
+									>
 										<svg
 											width="14"
 											height="14"
@@ -73,7 +100,11 @@
 											/>
 										</svg>
 									</a>
-									<a href="/" class="social__link social__link-telegram">
+									<a
+										href="https://web.telegram.org/"
+										class="social__link social__link-telegram"
+										target="_blank"
+									>
 										<svg
 											width="13"
 											height="12"
@@ -85,7 +116,11 @@
 											/>
 										</svg>
 									</a>
-									<a href="/" class="social__link social__link-viber">
+									<a
+										href="https://www.viber.com/ru/"
+										class="social__link social__link-viber"
+										target="_blank"
+									>
 										<svg
 											width="13"
 											height="15"
@@ -104,14 +139,14 @@
 								<p><span></span>Звоните Пн-Сб 10:00 - 21:00</p>
 								<div class="header__contacts-phone">
 									<a href="tel:+79251033330">+7 (925) 103 33 30</a>
-									<button class="header__contacts-dropdown">
+									<button class="header__contacts-dropdown only-desktop">
 										<img
 											src="assets/images/icons/dropdown-arrow.svg"
 											alt="Dropdown"
 										/>
 									</button>
 								</div>
-								<a href="/" class="dots-underline">
+								<a id="callPopupBtn" class="dots-underline">
 									Заказать звонок
 									<img src="assets/images/icons/phone.svg" alt="Phone" />
 								</a>
@@ -181,7 +216,11 @@
 										ремонта вашего двигателя
 										<img src="assets/images/icons/arrow.svg" alt="Arrow" />
 									</a>
-									<a class="btn hero__btn" href="/">
+									<a
+										class="btn hero__btn"
+										href="https://www.viber.com/ru/"
+										target="_blank"
+									>
 										<svg
 											width="14"
 											height="14"
@@ -243,6 +282,63 @@
 					</div>
 				</section>
 			</main>
+
+			<div id="callPopup" class="call-popup">
+				<div class="call-popup__form">
+					<div class="call-popup__close">
+						<span id="callPopupCloseBtn">
+							<svg
+								width="20"
+								height="20"
+								viewBox="0 0 20 20"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<path
+									fill-rule="evenodd"
+									clip-rule="evenodd"
+									d="M9.99992 12.2528L2.481 19.9998L0 17.4436L7.51892 9.69651L0.589098 2.55644L3.07009 0.000175111L9.99992 7.14025L16.9299 0L19.4109 2.55627L12.4809 9.69651L20 17.4437L17.519 20L9.99992 12.2528Z"
+								/>
+							</svg>
+						</span>
+					</div>
+					<h2 class="call-popup__title">Быстро оставить заявку</h2>
+					<p class="call-popup__description">
+						Введите номер — позвоним вам в течение 5-10 минут в рабочее время
+					</p>
+					<label for="phone">Введите ваш номер телефона</label>
+					<input
+						type="text"
+						name="phone"
+						placeholder="+ 7 (_ _ _) _ _ _ - _ _ - _ _"
+						class="form-input call-popup__input"
+						maxlength="18"
+					/>
+					<button class="btn call-popup__btn">Перезвоните мне</button>
+					<div class="call-popup__policy">
+						<label class="custom">
+							<input type="checkbox" name="checkbox" />
+							<span class="custom__checkbox">
+								<svg
+									width="14"
+									height="10"
+									viewBox="0 0 14 10"
+									xmlns="http://www.w3.org/2000/svg"
+								>
+									<path
+										d="M12.9648 1.32713L11.8016 0.223256C11.6448 0.0744186 11.4487 0 11.2265 0C11.0044 0 10.8083 0.0744186 10.6515 0.223256L5.05782 5.53178L2.56158 3.15039C2.40475 3.00155 2.20871 2.92713 1.98653 2.92713C1.76436 2.92713 1.56832 3.00155 1.41149 3.15039L0.248317 4.25426C0.0784158 4.4031 0 4.58915 0 4.8C0 5.01085 0.0784158 5.1969 0.235248 5.34574L3.3196 8.27287L4.48277 9.37674C4.6396 9.52558 4.83564 9.6 5.05782 9.6C5.28 9.6 5.47604 9.52558 5.63287 9.37674L6.79604 8.27287L12.9648 2.4186C13.1216 2.26977 13.2 2.08372 13.2 1.87287C13.2 1.66202 13.1216 1.47597 12.9648 1.32713Z"
+									/>
+								</svg>
+							</span>
+						</label>
+						<p>
+							Нажимая кнопку вы соглашаетесь с условиями
+							<a href="/">Политики конфиденциальности</a>
+						</p>
+					</div>
+				</div>
+			</div>
 		</section>
+
+		<script src="assets/js/main.js"></script>
 	</body>
 </html>
