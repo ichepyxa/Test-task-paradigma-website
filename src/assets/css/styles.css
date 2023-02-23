@@ -45,6 +45,23 @@ a:hover.dots-underline:after {
 	width: 60%;
 }
 
+.btn {
+	display: inline-block;
+	font-weight: 600;
+	font-size: 0.8vw;
+	height: inherit;
+	padding: 1.3vw 2.6vw;
+	background-color: var(--red-color);
+	color: var(--white-color);
+	border-radius: 2.5vw;
+	border: 1px solid transparent;
+	transition: 0.3s ease-in-out;
+}
+
+.btn:hover {
+	background-color: #d42118;
+}
+
 /* Header */
 .header {
 	background-color: var(--white-color);
@@ -234,7 +251,7 @@ a:hover.dots-underline:after {
 
 .header__menu-link {
 	text-transform: uppercase;
-	font-size: 0.7vw;
+	font-size: 0.8vw;
 	font-weight: 600;
 	letter-spacing: 0.1vw;
 	transition: 0.3s ease-in-out;
@@ -249,4 +266,215 @@ a:hover.dots-underline:after {
 	.only-desktop {
 		display: none;
 	}
+}
+
+/* Main */
+
+/* Hero */
+.hero {
+	display: flex;
+	justify-content: space-between;
+}
+
+.hero__left {
+	width: calc(100vw - 96vw);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1.5vw;
+}
+
+.hero__left p {
+	font-size: 0.8vw;
+	letter-spacing: 0.15vw;
+	font-weight: 700;
+	color: #efefef;
+	writing-mode: vertical-lr;
+	transform: rotateZ(180deg);
+}
+
+.hero__left > span {
+	height: 20vw;
+	width: 0.1vw;
+	background-color: #efefef;
+}
+
+.hero__left-img {
+	position: relative;
+}
+
+.hero__left img {
+	width: 1.2vw;
+	height: auto;
+}
+
+.hero__left-img::before {
+	content: '';
+	display: block;
+	position: absolute;
+	background: #000;
+	background: url('../images/icons/mouse-scroll.svg');
+	background-size: contain;
+	top: 0.8vw;
+	left: 0.6vw;
+	transform: translate(-50%, -50%);
+	width: 0.6vw;
+	height: 0.6vw;
+	z-index: 10;
+	animation: mouseScroll 2.5s infinite;
+}
+
+@keyframes mouseScroll {
+	0% {
+		top: 0.8vw;
+	}
+	50% {
+		top: 1.5vw;
+	}
+	100% {
+		top: 0.8vw;
+	}
+}
+
+.hero__right {
+	width: 96vw;
+	height: auto;
+	background: url('../images/bg.jpg');
+	background-attachment: center center;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-position: 50% 50%;
+	padding-top: 7vw;
+	padding-left: 5vw;
+	padding-right: 4vw;
+	position: relative;
+}
+
+.hero__right::before {
+	content: '';
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background: linear-gradient(
+		270deg,
+		rgba(22, 26, 30, 0) 0%,
+		rgba(22, 26, 30, 0.6375) 79.17%
+	);
+	z-index: 5;
+}
+
+.hero__wrapper {
+	position: relative;
+	z-index: 10;
+	color: var(--white-color);
+}
+
+.hero__title {
+	font-size: 3vw;
+	line-height: 4vw;
+	font-weight: 400;
+	margin: 0;
+}
+
+.hero__title span {
+	font-weight: 700;
+}
+
+.hero__subtitle {
+	font-size: 1.2vw;
+	margin-top: 2vw;
+}
+
+.hero__btns {
+	display: flex;
+	align-items: center;
+	height: 4vw;
+	margin-top: 2vw;
+	margin-bottom: 10vw;
+	gap: 1vw;
+}
+
+.hero__btn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 0.7vw;
+}
+
+.hero__btn:nth-child(1) {
+	gap: 1.4vw;
+}
+
+.hero__btn:nth-child(1) img {
+	transition: 0.3s ease-in-out;
+	width: 1vw;
+	height: auto;
+}
+
+.hero__btn:nth-child(1):hover img {
+	transform: rotateZ(45deg);
+}
+
+.hero__btn:nth-child(2) {
+	padding: 1.3vw 1.5vw;
+	background-color: rgba(0, 0, 0, 0.45);
+	border-color: var(--white-color);
+}
+
+.hero__btn:nth-child(2):hover {
+	background-color: var(--white-color);
+	color: var(--dark-color);
+}
+
+.hero__btn-whatsapp {
+	width: 1.2vw;
+	height: auto;
+	fill: #20c863;
+}
+
+.hero__advantages {
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	justify-content: space-between;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.hero__advantage {
+	width: calc(100vw / 4);
+	padding: 0 3vw 2.5vw 3vw;
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	justify-content: start;
+	gap: 1.2vw;
+	border-right: 0.05vw solid var(--white-color);
+}
+
+.hero__advantage:first-child {
+	padding: 0 3vw 2.5vw 0;
+}
+
+.hero__advantage:last-child {
+	padding: 0 0vw 2.5vw 3vw;
+	border-right: none;
+}
+
+.hero__advantage img {
+	width: 1.2vw;
+	height: auto;
+}
+
+.hero__advantage-text {
+	margin: 0;
+	font-weight: 300;
+	font-size: 1vw;
+}
+
+.hero__advantage-text span {
+	font-weight: 800;
 }
