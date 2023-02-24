@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+	let isBurgerActive = false
 	const mapPopup = () => {
 		const btnMap = document.querySelector('#mapBtn')
 		const closeBtnMap = document.querySelector('#mapCloseBtn')
@@ -23,16 +24,19 @@ document.addEventListener('DOMContentLoaded', () => {
 		const callPopupBtn = document.querySelector('#callPopupBtn')
 		const callPopupCloseBtn = document.querySelector('#callPopupCloseBtn')
 		const callPopup = document.querySelector('#callPopup')
+		const callPopupBtnSend = callPopup.querySelector('.call-popup__btn')
 		const input = callPopup.querySelector('input[name="phone"]')
 		const checkbox = callPopup.querySelector('input[name="checkbox"]')
 
 		let keyCode
-		function mask(event) {
+		let isValidPhone
+		const mask = event => {
 			if (event.keyCode) {
 				keyCode = event.keyCode
 			}
 
-			let pos = this.selectionStart
+			event.target.classList.remove('invalid')
+			let pos = event.target.selectionStart
 			if (pos < 3) {
 				event.preventDefault()
 			}
@@ -40,13 +44,10 @@ document.addEventListener('DOMContentLoaded', () => {
 			let mask = '+7 (___) ___ __ __'
 			let i = 0
 			let def = mask.replace(/\D/g, '')
-			let val = this.value.replace(/\D/g, '')
+			let val = event.target.value.replace(/\D/g, '')
 			let new_value = mask.replace(/[_\d]/g, a => {
 				return i < val.length ? val.charAt(i++) || def.charAt(i) : a
 			})
-			console.log(def)
-			console.log(val)
-			console.log(new_value)
 
 			i = new_value.indexOf('_')
 			if (i != -1) {
@@ -58,20 +59,30 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 
 			let reg = mask
-				.substr(0, this.value.length)
-				.replace(/_+/g, function (a) {
+				.substr(0, event.target.value.length)
+				.replace(/_+/g, a => {
 					return '\\d{1,' + a.length + '}'
 				})
 				.replace(/[+()]/g, '\\$&')
 			reg = new RegExp('^' + reg + '$')
 
 			if (
-				!reg.test(this.value) ||
-				this.value.length < 4 ||
+				!reg.test(event.target.value) ||
+				event.target.value.length < 4 ||
 				(keyCode > 47 && keyCode < 58)
-			)
-				this.value = new_value
-			if (event.type == 'blur' && this.value.length < 4) this.value = ''
+			) {
+				event.target.value = new_value
+			}
+
+			if (event.type == 'blur' && event.target.value.length < 4) {
+				event.target.value = ''
+			}
+
+			if (event.target.value.length === event.target.maxLength) {
+				isValidPhone = true
+			} else {
+				isValidPhone = false
+			}
 		}
 
 		const closePopup = () => {
@@ -87,6 +98,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			input.disabled = undefined
 		}
+
+		callPopupBtnSend.addEventListener('click', e => {
+			if (!checkbox.checked) {
+				return
+			}
+
+			if (!isValidPhone) {
+				input.classList.add('invalid')
+				return
+			}
+
+			callPopup.classList.add('done')
+		})
 
 		callPopupBtn.addEventListener('click', e => {
 			e.preventDefault()
@@ -113,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 		})
 
-		input.addEventListener('change', mask, false)
+		input.addEventListener('input', mask, false)
 		input.addEventListener('focus', mask, false)
 		input.addEventListener('blur', mask, false)
 		input.addEventListener('keydown', mask, false)
@@ -122,6 +146,60 @@ document.addEventListener('DOMContentLoaded', () => {
 		checkActiveCheckbox()
 	}
 
+	const burgerMenu = () => {
+		const nav = document.querySelector('#mobileNav')
+		const menu = document.querySelector('#mobileMenu')
+		const btn = document.querySelector('#burger')
+
+		btn.addEventListener('click', e => {
+			if (
+				!nav.classList.contains('active') &&
+				!menu.classList.contains('active')
+			) {
+				nav.classList.add('active')
+				menu.classList.add('active')
+				isBurgerActive = true
+
+				return
+			}
+
+			nav.classList.remove('active')
+			menu.classList.remove('active')
+			isBurgerActive = false
+		})
+	}
+
+	const stickyNavbar = () => {
+		const nav = document.querySelector('#mobileNav')
+		const page = document.querySelector('.page-wrapper')
+		const sticky = nav.offsetTop + nav.offsetHeight / 2
+
+		const toggleStickyNavbar = () => {
+			if (isBurgerActive) {
+				page.style.marginTop = `0`
+				nav.classList.remove('fixed')
+				return
+			}
+
+			if (window.pageYOffset >= sticky) {
+				const positionNav = window.getComputedStyle(nav).position
+				if (positionNav != 'absolute' && positionNav != 'fixed') {
+					page.style.marginTop = `${nav.offsetHeight}px`
+				}
+
+				nav.classList.add('fixed')
+			} else {
+				page.style.marginTop = `0`
+				nav.classList.remove('fixed')
+			}
+		}
+
+		toggleStickyNavbar()
+		window.addEventListener('scroll', toggleStickyNavbar)
+	}
+
 	mapPopup()
 	callPopup()
+	burgerMenu()
+	stickyNavbar()
 })
